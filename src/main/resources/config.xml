@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                       http://www.springframework.org/schema/beans/spring-beans.xsd
+                       http://www.springframework.org/schema/context
+                       http://www.springframework.org/schema/context/spring-context-5.0.2.xsd
+                       http://www.springframework.org/schema/aop
+                       http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+    <!--    bean등록, aop설정-->
+
+    <bean id="t1" class="kr.hs.study.beans.TestBean"/>
+    <bean id="advisor" class="kr.hs.study.advisor.Advisor"/>
+
+    <!--aop 설정-->
+    <aop:config>
+        <aop:aspect ref="advisor">
+            <!--pointcut 설정     * : return 타입 - (모든것),         -->
+            <aop:pointcut id="p1" expression="execution(* method1())"/>
+            <aop:before method = "beforeMethod" pointcut-ref = "p1"/>
+            <aop:after method = "afterMethod" pointcut-ref = "p1"/>
+            <aop:around method = "aroundMethod" pointcut-ref = "p1"/>
+            <aop:after-returning method = "afterreturningMethod" pointcut-ref = "p1"/>
+            <aop:after-throwing method = "afterthrowingMethod" pointcut-ref = "p1" throwing="e"/>
+        </aop:aspect>
+
+    </aop:config>
+
+
+
+
+</beans>
